@@ -29,6 +29,27 @@
           Please enter a valid task and due date.
         </div>
       </form>
+      <section class="controls">
+        <div class="filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="active">Active</button>
+          <button class="filter-btn" data-filter="done">Completed</button>
+        </div>
+        <div class="extras">
+          <button id="clear-done">Clear Completed</button>
+          <button id="toggle-list">Hide List</button>
+        </div>
+      </section>
+
+      <!-- For rendering the todo list -->
+      <section id="list-section">
+        <div class="list-header">
+          <span class="col-task">Task</span>
+          <span class="col-due">Due Date</span>
+          <span class="col-delete">Delete</span>
+        </div>
+        <ul id="todo-list"></ul>
+      </section>
     </main>
     <script src="todo.js"></script>
   </body>
