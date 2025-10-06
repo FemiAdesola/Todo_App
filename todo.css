@@ -52,7 +52,7 @@ button {
   font-weight: 600;
 }
 button:hover {
-  background: #080808;
+  background: #d1d5db;
 }
 
 input[type="text"], input[type="date"] {
@@ -111,4 +111,22 @@ input.valid {
   border-bottom: 1px solid #e5e7eb;
   padding: 0.5rem;
   transition: opacity 0.3s ease;
+}
+
+.list-header {
+  display: grid;
+  grid-template-columns: 1fr 120px 60px;
+  font-weight: bold;
+  padding: 0.5rem;
+  border-bottom: 2px solid #ccc;
+  margin-top: 1rem;
+  color: #374151;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 1.2rem;
+  cursor: pointer;
 }

@@ -9,10 +9,12 @@ const openCount = document.getElementById("open-count");
 const filters = document.querySelectorAll(".filter-btn");
 const clearBtn = document.getElementById("clear-done");
 const toggleBtn = document.getElementById("toggle-list");
+const listSection = document.getElementById("list-section");
 
 const STORAGE_KEY = "todo-full-v2";
 let todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
 let filterState = "all";
+let lastDeleted = null;
 
 // --- Event Listeners ---
 form.addEventListener("submit", addTask);
@@ -58,6 +60,7 @@ function changeFilter(e) {
   render();
 }
 
+// --- Render ---
 function render() {
   todoList.innerHTML = "";
   const visible = todos.filter((t) =>
@@ -72,6 +75,12 @@ function render() {
   } else {
     visible.forEach((task) => todoList.appendChild(createItem(task)));
   }
+
+  // Update counts and button states
+  openCount.textContent = todos.filter((t) => !t.done).length;
+  filters.forEach((btn) =>
+    btn.classList.toggle("active", btn.dataset.filter === filterState)
+  );
 }
 
 // --- Task Item Creation ---
@@ -88,20 +97,48 @@ function createItem(task) {
   const taskDiv = document.createElement("div");
   taskDiv.className = "task-column";
 
-    const span = document.createElement("span");
-    span.textContent = `${task.text} (${task.startDate})`;
-    span.className = "todo-text";
-    if (task.done) span.classList.add("done");
-    span.addEventListener("dblclick", () => editTask(task.id, span));
+  const span = document.createElement("span");
+  span.textContent = `${task.text} (${task.startDate})`;
+  span.className = "todo-text";
+  if (task.done) span.classList.add("done");
+  span.addEventListener("dblclick", () => editTask(task.id, span));
 
-    taskDiv.append(span);
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.checked = task.done;
+  checkbox.addEventListener("change", () => toggleDone(task.id));
+
+  taskDiv.append(checkbox, span);
 
   const date = document.createElement("span");
   date.className = "due-date";
   date.textContent = task.dueDate;
 
-  li.append(taskDiv, date);
+  const delBtn = document.createElement("button");
+  delBtn.className = "icon-btn";
+  delBtn.textContent = "🗑";
+  delBtn.title = "Delete task";
+  delBtn.addEventListener("click", () => deleteTask(task.id));
+
+  li.append(taskDiv, date, delBtn);
   return li;
+}
+
+// --- CRUD Actions ---
+function toggleDone(id) {
+  const task = todos.find((t) => t.id === id);
+  task.done = !task.done;
+  saveTodos();
+  render();
+}
+
+function deleteTask(id) {
+  const idx = todos.findIndex((t) => t.id === id);
+  if (idx === -1) return;
+  lastDeleted = todos[idx];
+  todos.splice(idx, 1);
+  saveTodos();
+  render();
 }
 
 function saveTodos() {
