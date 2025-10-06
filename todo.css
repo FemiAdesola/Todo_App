@@ -11,7 +11,7 @@ body {
   background: #fff;
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   width: 100%;
 }
@@ -55,16 +55,18 @@ button:hover {
   background: #d1d5db;
 }
 
-input[type="text"], input[type="date"] {
+input[type="text"],
+input[type="date"] {
   border: 1px solid #d1d5db;
   border-radius: 6px;
   padding: 0.5rem;
   font-size: 1rem;
 }
 
-input[type="text"]:focus, input[type="date"]:focus {
+input[type="text"]:focus,
+input[type="date"]:focus {
   outline: none;
-  border-color:none;
+  border-color: none;
   box-shadow: none;
 }
 
@@ -111,7 +113,29 @@ input.valid {
   border-bottom: 1px solid #e5e7eb;
   padding: 0.5rem;
   transition: opacity 0.3s ease;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
+
+.task-column {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  word-break: break-word;
+}
+
+.task-column input[type="checkbox"] {
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.todo-text {
+  flex: 1;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
 .todo-item.done {
   opacity: 0.5;
 }
@@ -122,8 +146,14 @@ input.valid {
 }
 
 .due-date {
+  text-align: center;
   font-size: 0.9rem;
   color: #374151;
+  white-space: nowrap;
+}
+
+.overdue .todo-text {
+  color: #dc2626;
 }
 
 .list-header {
@@ -142,6 +172,7 @@ input.valid {
   color: #ef4444;
   font-size: 1.2rem;
   cursor: pointer;
+  text-align: center;
 }
 
 .icon-btn:hover {
@@ -155,6 +186,11 @@ input.valid {
   border-radius: 6px;
   text-align: center;
   margin-top: 1rem;
+}
+
+.todo-item.dragging {
+  opacity: 0.5;
+  background: #dbeafe;
 }
 
 .bottom-status-bar {

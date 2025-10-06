@@ -13,7 +13,7 @@ const listSection = document.getElementById("list-section");
 const undoBanner = document.getElementById("undo-banner");
 const undoBtn = document.getElementById("undo-btn");
 
-const STORAGE_KEY = "todo-full-v1";
+const STORAGE_KEY = "todo-v1";
 let todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
 let filterState = "all";
 let lastDeleted = null;
@@ -94,11 +94,17 @@ function createItem(task) {
   const li = document.createElement("li");
   li.className = "todo-item";
   li.dataset.id = task.id;
-//   li.draggable = true;
+  li.draggable = true;
 
   const today = new Date().toISOString().split("T")[0];
   if (!task.done && task.dueDate < today) li.classList.add("overdue");
   if (task.done) li.classList.add("done");
+
+   // Drag events
+  li.addEventListener("dragstart", dragStart);
+  li.addEventListener("dragover", dragOver);
+  li.addEventListener("drop", dropItem);
+  li.addEventListener("dragend", dragEnd);
 
   const taskDiv = document.createElement("div");
   taskDiv.className = "task-column";
@@ -193,7 +199,7 @@ function clearCompleted() {
 function showUndo() {
   undoBanner.classList.remove("hidden");
   clearTimeout(undoTimer);
-  undoTimer = setTimeout(hideUndo, 10000);
+  undoTimer = setTimeout(hideUndo, 7000);
 }
 function hideUndo() {
   undoBanner.classList.add("hidden");
@@ -208,6 +214,41 @@ function toggleList() {
   toggleBtn.textContent = hidden ? "Hide List" : "Show List";
 }
 
+// --- Drag & Drop ---
+let draggingId = null;
+
+function dragStart(e) {
+  draggingId = e.currentTarget.dataset.id;
+  e.currentTarget.classList.add("dragging");
+}
+
+function dragOver(e) {
+  e.preventDefault();
+  const dragging = document.querySelector(".dragging");
+  const target = e.currentTarget;
+  if (dragging === target) return;
+  const list = todoList;
+  const items = Array.from(list.children);
+  const src = items.indexOf(dragging);
+  const tgt = items.indexOf(target);
+  if (src < tgt) list.insertBefore(dragging, target.nextSibling);
+  else list.insertBefore(dragging, target);
+}
+
+function dropItem(e) {
+  e.preventDefault();
+  const ids = Array.from(todoList.children).map(li => li.dataset.id);
+  todos.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
+  saveTodos();
+}
+
+function dragEnd(e) {
+  e.currentTarget.classList.remove("dragging");
+}
+
+// --- Local Storage ---
 function saveTodos() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
 }
+
+render();
