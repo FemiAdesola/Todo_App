@@ -7,6 +7,7 @@ body {
   justify-content: center;
 }
 
+/* container */
 .container {
   background: #fff;
   padding: 1.5rem;
@@ -100,6 +101,7 @@ input.valid {
   background: #a1a3a7;
 }
 
+/* For todo list section */
 #todo-list {
   list-style: none;
   padding: 0;
