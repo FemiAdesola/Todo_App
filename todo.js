@@ -10,15 +10,21 @@ const filters = document.querySelectorAll(".filter-btn");
 const clearBtn = document.getElementById("clear-done");
 const toggleBtn = document.getElementById("toggle-list");
 const listSection = document.getElementById("list-section");
+const undoBanner = document.getElementById("undo-banner");
+const undoBtn = document.getElementById("undo-btn");
 
-const STORAGE_KEY = "todo-full-v2";
+const STORAGE_KEY = "todo-full-v1";
 let todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
 let filterState = "all";
 let lastDeleted = null;
+let undoTimer;
 
 // --- Event Listeners ---
 form.addEventListener("submit", addTask);
 filters.forEach((btn) => btn.addEventListener("click", changeFilter));
+clearBtn.addEventListener("click", clearCompleted);
+toggleBtn.addEventListener("click", toggleList);
+undoBtn.addEventListener("click", restoreDeleted);
 
 // --- Functions ---
 function addTask(e) {
@@ -88,7 +94,7 @@ function createItem(task) {
   const li = document.createElement("li");
   li.className = "todo-item";
   li.dataset.id = task.id;
-  li.draggable = true;
+//   li.draggable = true;
 
   const today = new Date().toISOString().split("T")[0];
   if (!task.done && task.dueDate < today) li.classList.add("overdue");
@@ -101,7 +107,7 @@ function createItem(task) {
   span.textContent = `${task.text} (${task.startDate})`;
   span.className = "todo-text";
   if (task.done) span.classList.add("done");
-  span.addEventListener("dblclick", () => editTask(task.id, span));
+  span.addEventListener("dblclick", () => updateTask(task.id, span));
 
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
@@ -124,6 +130,30 @@ function createItem(task) {
   return li;
 }
 
+// --- Updating the task ---
+function updateTask(id, span) {
+  const task = todos.find(t => t.id === id);
+  const input = document.createElement("input");
+  input.type = "text";
+  input.value = task.text;
+  input.className = "edit-input";
+  span.replaceWith(input);
+  input.focus();
+
+  const finish = () => {
+    const character = input.value.trim();
+    if (character.length >= 3) task.text = character;
+    saveTodos();
+    render();
+  };
+
+  input.addEventListener("blur", finish);
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") finish();
+    if (e.key === "Escape") render();
+  });
+}
+
 // --- CRUD Actions ---
 function toggleDone(id) {
   const task = todos.find((t) => t.id === id);
@@ -138,7 +168,44 @@ function deleteTask(id) {
   lastDeleted = todos[idx];
   todos.splice(idx, 1);
   saveTodos();
+  showUndo();
   render();
+}
+
+// Restore the last deleted task
+function restoreDeleted() {
+  if (!lastDeleted) return;
+  todos.unshift(lastDeleted);
+  lastDeleted = null;
+  hideUndo();
+  saveTodos();
+  render();
+}
+
+// clear the completed tasks
+function clearCompleted() {
+  todos = todos.filter(t => !t.done);
+  saveTodos();
+  render();
+}
+
+// --- Undo Banner ---
+function showUndo() {
+  undoBanner.classList.remove("hidden");
+  clearTimeout(undoTimer);
+  undoTimer = setTimeout(hideUndo, 10000);
+}
+function hideUndo() {
+  undoBanner.classList.add("hidden");
+  lastDeleted = null;
+  clearTimeout(undoTimer);
+}
+
+// --- toggle the list ---
+function toggleList() {
+  const hidden = listSection.style.display === "none";
+  listSection.style.display = hidden ? "" : "none";
+  toggleBtn.textContent = hidden ? "Hide List" : "Show List";
 }
 
 function saveTodos() {

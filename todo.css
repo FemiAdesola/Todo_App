@@ -112,6 +112,19 @@ input.valid {
   padding: 0.5rem;
   transition: opacity 0.3s ease;
 }
+.todo-item.done {
+  opacity: 0.5;
+}
+
+.todo-text.done {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.due-date {
+  font-size: 0.9rem;
+  color: #374151;
+}
 
 .list-header {
   display: grid;
@@ -129,4 +142,24 @@ input.valid {
   color: #ef4444;
   font-size: 1.2rem;
   cursor: pointer;
+}
+
+.icon-btn:hover {
+  transform: scale(1.1);
+}
+
+.undo-banner {
+  background: #dbeafe;
+  border: 1px solid #3b82f6;
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.bottom-status-bar {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #6b7280;
 }
