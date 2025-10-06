@@ -32,7 +32,7 @@
 │   └── Hide_show.png
 ├── README.md
 ├── todo.css
-├── todo.html
+├── index.html
 └── todo.js
 ```
 ---
