@@ -13,6 +13,10 @@ const listSection = document.getElementById("list-section"); // Section containi
 const undoBanner = document.getElementById("undo-banner"); // Undo banner
 const undoBtn = document.getElementById("undo-btn"); // Undo button in banner
 
+// --- Theme Toggle ---
+const themeToggle = document.getElementById("theme-toggle");
+const THEME_KEY = "todo-theme";
+
 // --- State ---
 const STORAGE_KEY = "todo-v1";
 let todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); // Load from localStorage
@@ -264,5 +268,21 @@ function dragEnd(e) {
 function saveTodos() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(todos)); // Save to localStorage
 }
+
+// For theme ligfh and dark
+// Load saved theme
+const savedTheme = localStorage.getItem(THEME_KEY);
+if (savedTheme === "dark") {
+  document.body.classList.add("dark");
+  themeToggle.textContent = "☀️ Light Mode";
+}
+
+// Handle theme switch
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  const isDark = document.body.classList.contains("dark");
+  localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
+  themeToggle.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+});
 
 render(); // Initial render

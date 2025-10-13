@@ -1,3 +1,100 @@
+/* --- Theme Toggle Button --- */
+.theme-btn {
+  background: transparent;
+  color: #374151;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  float: right;
+  margin-bottom: 5px;
+}
+.theme-btn:hover {
+  background: #e5e7eb;
+}
+
+/* --- DARK THEME --- */
+body.dark {
+  background: #1e293b;
+  color: #f3f4f6;
+}
+
+body.dark .container {
+  background: #334155;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+body.dark h1 {
+  color: #f9fafb;
+}
+
+body.dark label {
+  color: #e2e8f0;
+}
+
+body.dark input[type="text"],
+body.dark input[type="date"] {
+  background: #475569;
+  color: #f9fafb;
+  border: 1px solid #64748b;
+}
+
+body.dark input.invalid {
+  background: #7f1d1d;
+  border-color: #f87171;
+}
+
+body.dark button {
+  background: #3b82f6;
+  color: #fff;
+}
+
+body.dark button:hover {
+  background: #2563eb;
+}
+
+body.dark .filters button.active {
+  background: #475569;
+  color: #f9fafb;
+}
+
+body.dark .todo-item {
+  border-bottom: 1px solid #475569;
+}
+
+body.dark .list-header {
+  border-bottom: 2px solid #64748b;
+  color: #f1f5f9;
+}
+
+body.dark .due-date {
+  color: #e2e8f0;
+}
+
+body.dark .todo-text.done {
+  color: #9ca3af;
+}
+
+body.dark .icon-btn {
+  color: #f87171;
+}
+
+body.dark .undo-banner {
+  background: #1e40af;
+  border: 1px solid #3b82f6;
+  color: #f1f5f9;
+}
+
+body.dark .theme-btn {
+  color: #f1f5f9;
+  border-color: #94a3b8;
+}
+body.dark .theme-btn:hover {
+  background: #475569;
+}
+
+/*  */
 body {
   font-family: system-ui, sans-serif;
   background: #f9fafb;
@@ -28,6 +125,7 @@ form {
   flex-wrap: wrap;
   gap: 0.75rem;
   align-items: flex-end;
+  margin-top: 1.75rem;
 }
 
 .form-group {

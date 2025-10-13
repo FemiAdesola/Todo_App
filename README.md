@@ -19,6 +19,14 @@ View the website link [here](https://todo-app-femi.netlify.app)
 - 🎨 External CSS and JS files  
 - 🕓 Task labels for Task / Date / Delete columns  
 - 🧩 Addition feature of **Hide/Show** list button  
+- 🌗 **Persistent theme toggle** — the dark/light preference  
+
+---
+## 🛠 Tech Stack
+- HTML5
+- CSS3 (custom properties, responsive layout)
+- Vanilla JavaScript (ES6)
+- localStorage persistence
 
 ---
 
@@ -91,5 +99,15 @@ Also, Aall data remains saved in LocalStorage, even when hidden.
 
 ![hide_show](/img/Hide_show.png)
 
+### Toggling Theme
+- Click the **🌙 / ☀️** icon in the header  to switch themes.
+  * The preference is saved automatically.
+
 ---
+#### 📸 Dark and Light Theme
+
+| Dark Theme | Light Theme |
+|-------------|--------------|
+| ![Dark mode](/img/FrontDark.png) | ![Light mode](/img/FrontLight.png) |
+
 [Femi Adesola Oyinloye](https://github.com/FemiAdesola) © 2025 
