@@ -164,9 +164,10 @@ input[type="date"] {
 
 input[type="text"]:focus,
 input[type="date"]:focus {
-  outline: none;
-  border-color: none;
-  box-shadow: none;
+  outline: gray;
+  border-color: gray;
+  box-shadow: gray;
+  background-color: #b4b7ba;
 }
 
 input.invalid {

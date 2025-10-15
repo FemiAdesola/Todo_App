@@ -2,6 +2,8 @@
 
 > This is a fully functional, browser-based TODO application built **entirely with native JavaScript**, and **no libraries**. The app is styled with external CSS and includes robust task management features.
 
+> The instructions provided here apply to both Windows and Mac users.
+
 View the website link [here](https://todo-app-femi.netlify.app)
 ---
 
@@ -53,6 +55,7 @@ View the website link [here](https://todo-app-femi.netlify.app)
 ### ➕ Add
 > Type a task name (minimum 3 characters) and select a due date, then click **Add Task.** \
 > The app automatically records today’s date as the start date, and the task instantly appears in your list.
+> On click input field, it show gray focus
 
 ### ✏️ Edit
 > Double-click any task text to switch it into edit mode. Type the new text and press Enter (or click away) to save the update instantly.
