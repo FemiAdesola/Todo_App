@@ -4,6 +4,27 @@
 
 > The instructions provided here apply to both Windows and Mac users.
 
+ **Clone the repository**
+   ```bash
+   git clone https://github.com/FemiAdesola/Todo_App.git 
+
+   cd Todo_App
+   ```
+
+Windows (CMD)
+```bash
+mkdir Todo_App
+cd Todo_App  
+code .   REM opens VS Code if available 
+```
+
+macOS (Terminal)
+```bash
+mkdir -p Todo_App
+cd Todo_App
+code .   # opens VS Code if available
+```
+
 View the website link [here](https://todo-app-femi.netlify.app)
 ---
 
