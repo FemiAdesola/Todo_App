@@ -1,17 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+     <!-- ============================================================
+      📋 TODO APP - MAIN HTML STRUCTURE
+      ------------------------------------------------------------
+      This HTML file defines the front-end structure for a simple
+      To-Do List web app. The app allows users to:
+        Add tasks with due dates
+        Filter tasks (all, active, completed)
+        Mark tasks done
+        Delete and undo tasks
+        Save data locally (using LocalStorage)
+        Toggle light/dark themes
+
+      Styling is managed via an external CSS file, and interactivity
+      is handled through a separate JavaScript file (todo.js).
+    ============================================================ -->
   <head>
+    <!-- Sets character encoding for universal text support -->
     <meta charset="UTF-8" />
+
+    <!-- Ensures responsive display on all screen sizes -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- External stylesheet for layout, colors, and theme design -->
     <link rel="stylesheet" href="./assets/todo.css" />
+
+    <!-- Page title shown in browser tab -->
     <title>TODO APP</title>
   </head>
   <body>
     <main class="container">
+      <!-- ============================================================
+        HEADER SECTION
+        ------------------------------------------------------------
+        Displays the title of the app and provides a toggle button 
+        for switching between dark and light modes. The theme is 
+        persisted using LocalStorage (handled in JS).
+      ============================================================ -->
       <h1>📋 TODO APP</h1>
       <button id="theme-toggle" class="theme-btn">🌙 Dark Mode</button>
 
-      <!-- For implementation -->
+      <!-- ============================================================
+          TASK INPUT FORM
+        ------------------------------------------------------------
+        This form allows users to create a new task with:
+          - Task name (minimum 3 characters)
+          - Optional due date
+        Includes client-side validation and error messages.
+        The "novalidate" attribute disables default browser validation
+        so custom JS validation can be used instead.
+      ============================================================ -->
       <form id="todo-form" novalidate>
         <div class="form-group">
           <label for="task-input">Task:</label>
@@ -27,10 +65,22 @@
           <input id="due-date" type="date" />
         </div>
         <button id="add-btn" type="submit">Add Task</button>
+
+        <!-- Error message shown only when validation fails -->
         <div id="form-error" class="error hidden">
           Please enter a valid task and due date.
         </div>
       </form>
+
+      <!-- ============================================================
+          FILTERS & EXTRA CONTROLS
+        ------------------------------------------------------------
+        Provides buttons to filter visible tasks and manage the list:
+          - Filter by "All", "Active", or "Completed"
+          - "Clear Completed" removes all done tasks
+          - "Hide List" toggles list visibility
+        These controls make it easier to manage large task lists.
+      ============================================================ -->
       <section class="controls">
         <div class="filters">
           <button class="filter-btn active" data-filter="all">All</button>
@@ -43,7 +93,17 @@
         </div>
       </section>
 
-      <!-- For rendering the todo list -->
+       <!-- ============================================================
+        TODO LIST DISPLAY SECTION
+        ------------------------------------------------------------
+        The main list area where all tasks are dynamically rendered.
+        The header row defines columns:
+          - Task name
+          - Due date
+          - Delete action
+        The <ul> (#todo-list) is populated by JavaScript as users 
+        add, complete, or delete tasks.
+      ============================================================ -->
       <section id="list-section">
         <div class="list-header">
           <span class="col-task">Task</span>
@@ -52,9 +112,25 @@
         </div>
         <ul id="todo-list"></ul>
       </section>
+
+      <!-- ============================================================
+        UNDO BANNER (AFTER DELETION)
+        ------------------------------------------------------------
+        Temporary banner displayed after a task is deleted.
+        Gives users the option to undo the deletion before 
+        the action becomes permanent.
+      ============================================================ -->
       <div id="undo-banner" class="undo-banner hidden">
         Task deleted. <button id="undo-btn">Undo</button>
       </div>
+
+      <!-- ============================================================
+        STATUS BAR / FOOTER
+        ------------------------------------------------------------
+        Displays a summary of task statistics (e.g., number of open tasks).
+        It also notes that all data is stored locally in the browser,
+        not sent to a remote server.
+      ============================================================ -->
       <div class="bottom-status-bar">
         <p>
           <span id="open-count">0</span> tasks open • All changes saved locally
@@ -62,6 +138,18 @@
         </p>
       </div>
     </main>
+
+    <!-- ============================================================
+      SCRIPT LINK
+      ------------------------------------------------------------
+      Links to the main JavaScript file that controls all app logic:
+        - Adding tasks
+        - Filtering
+        - Marking as completed
+        - LocalStorage persistence
+        - Undo delete feature
+        - Theme toggle
+    ============================================================ -->
     <script src="./js/todo.js"></script>
   </body>
 </html>
